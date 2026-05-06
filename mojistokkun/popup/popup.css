@@ -1,0 +1,344 @@
+/* popup.css */
+:root {
+  --popup-width: 380px;
+  --popup-max-height: 540px;
+  --color-primary: #4a90e2;
+  --color-primary-hover: #357abd;
+  --color-bg: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-text: #333333;
+  --color-text-muted: #888888;
+  --color-border: #e0e0e0;
+  --color-hover: #f0f4ff;
+  --color-error: #e53935;
+  --color-star: #f5a623;
+  --radius: 6px;
+  --header-height: 44px;
+  --tab-height: 36px;
+  --search-height: 40px;
+  --footer-height: 42px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: var(--popup-width);
+  max-height: var(--popup-max-height);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== ビュー ===== */
+#main-view, #options-view {
+  display: flex;
+  flex-direction: column;
+  height: var(--popup-max-height);
+}
+.hidden { display: none !important; }
+
+/* ===== ヘッダー ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  flex-shrink: 0;
+}
+.app-title { font-weight: 600; font-size: 14px; }
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: var(--radius);
+  line-height: 1;
+}
+.icon-btn:hover { background: var(--color-hover); }
+
+/* ===== タブバー ===== */
+#tab-bar {
+  display: flex;
+  height: var(--tab-height);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
+.tab-btn:hover:not(.active) { background: var(--color-surface); }
+
+/* ===== 検索バー ===== */
+.search-wrap {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  position: relative;
+}
+#search-input {
+  width: 100%;
+  height: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  /* right padding = .search-hint right(18px) + badge width(~50px) + gap(2px) */
+  padding: 0 70px 0 10px;
+  font-size: 13px;
+  outline: none;
+}
+#search-input:focus { border-color: var(--color-primary); }
+
+/* ===== タブペイン ===== */
+.tab-pane {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== リスト ===== */
+.item-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+}
+.item-list li {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  gap: 6px;
+  min-height: 40px;
+}
+.item-list li:hover { background: var(--color-hover); }
+.item-list li.selected { background: var(--color-hover); outline: 2px solid var(--color-primary); }
+
+.item-text {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+}
+.item-time {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.item-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+.action-btn:hover { background: var(--color-border); color: var(--color-text); }
+.action-btn.starred { color: var(--color-star); }
+
+/* ===== フッター ===== */
+.app-footer {
+  height: var(--footer-height);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 2px 12px;
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+/* ===== プレビューパネル ===== */
+#preview-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 10px;
+  gap: 8px;
+  overflow: hidden;
+}
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.preview-title {
+  font-weight: 600;
+  font-size: 13px;
+  word-break: break-all;
+}
+.preview-textarea {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--color-surface);
+  outline: none;
+}
+
+/* ===== オプションビュー ===== */
+.options-toolbar {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+#favorite-form {
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+#form-title {
+  width: 100%;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0 8px;
+  font-size: 13px;
+  outline: none;
+}
+#form-title:focus { border-color: var(--color-primary); }
+#form-text {
+  width: 100%;
+  height: 100px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+}
+#form-text:focus { border-color: var(--color-primary); }
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-btns { display: flex; gap: 6px; }
+.char-count { font-size: 11px; color: var(--color-text-muted); }
+
+/* ===== 共通ボタン ===== */
+.primary-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.primary-btn:hover { background: var(--color-primary-hover); }
+.text-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: var(--radius);
+  font-family: inherit;
+}
+.text-btn:hover { background: var(--color-hover); }
+
+/* ===== エラー・空メッセージ ===== */
+.inline-error {
+  padding: 6px 10px;
+  background: #ffebee;
+  color: var(--color-error);
+  font-size: 12px;
+  border-radius: var(--radius);
+  margin: 4px 10px;
+}
+.empty-msg {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* ===== ショートカットヒント ===== */
+.shortcut-hint {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  opacity: 0.65;
+  letter-spacing: 0.01em;
+}
+
+/* ===== スロットフォーカス（←→キーナビ） ===== */
+.action-btn.slot-focused {
+  background: var(--color-primary) !important;
+  color: white !important;
+  outline: none;
+}
+
+/* ===== タブバー Tabキーバッジ ===== */
+.key-hint {
+  margin-left: auto;
+  margin-right: 8px;
+  align-self: center;
+  font-size: 10px;
+  font-family: inherit;
+  padding: 2px 5px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ===== 検索バー Ctrl+Fバッジ ===== */
+.search-hint {
+  position: absolute;
+  /* 10px = .search-wrap side padding, 8px = gap from input right border */
+  right: calc(10px + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  font-size: 10px;
+  font-family: inherit;
+  padding: 1px 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  white-space: nowrap;
+}

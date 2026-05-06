@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- ========== メインビュー ========== -->
+  <div id="main-view">
+    <header class="app-header">
+      <span class="app-title">もじすとっくん</span>
+      <button id="btn-open-options" class="icon-btn" title="お気に入り管理">⚙️</button>
+    </header>
+
+    <div id="tab-bar">
+      <button class="tab-btn active" data-tab="history">履歴</button>
+      <button class="tab-btn" data-tab="favorites">お気に入り</button>
+      <kbd class="key-hint" aria-hidden="true">Tab</kbd>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="🔍 検索..." autocomplete="off">
+      <kbd class="search-hint" aria-hidden="true">Ctrl+F</kbd>
+    </div>
+
+    <!-- 履歴タブ -->
+    <div id="tab-history" class="tab-pane active">
+      <div id="history-error" class="inline-error hidden"></div>
+      <ul id="history-list" class="item-list"></ul>
+      <p id="history-empty" class="empty-msg hidden">履歴がありません</p>
+    </div>
+
+    <!-- お気に入りタブ -->
+    <div id="tab-favorites" class="tab-pane hidden">
+      <!-- リストビュー -->
+      <div id="favorites-list-view">
+        <div id="favorites-error" class="inline-error hidden"></div>
+        <ul id="favorites-list" class="item-list"></ul>
+        <p id="favorites-empty" class="empty-msg hidden">お気に入りがありません</p>
+      </div>
+      <!-- プレビューパネル -->
+      <div id="preview-panel" class="hidden">
+        <div class="preview-header">
+          <button id="btn-preview-back" class="text-btn">← 戻る</button>
+          <span id="preview-char-count" class="char-count"></span>
+        </div>
+        <div id="preview-title" class="preview-title"></div>
+        <textarea id="preview-text" class="preview-textarea" readonly></textarea>
+        <button id="btn-preview-copy" class="primary-btn">クリップボードにコピー</button>
+        <div id="preview-error" class="inline-error hidden"></div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <span id="footer-count"></span>
+      <span class="shortcut-hint">↑↓:選択　→:アクション　Enter:コピー　Esc:戻る</span>
+    </footer>
+  </div>
+
+  <!-- ========== オプションビュー ========== -->
+  <div id="options-view" class="hidden">
+    <header class="app-header">
+      <button id="btn-options-back" class="text-btn">← 戻る</button>
+      <span class="app-title">お気に入り管理</span>
+    </header>
+
+    <!-- 追加/編集フォーム -->
+    <div id="favorite-form" class="hidden">
+      <input type="text" id="form-title" placeholder="タイトル（最大50文字）" maxlength="50">
+      <textarea id="form-text" placeholder="本文（最大1,000文字）" maxlength="1000"></textarea>
+      <div class="form-footer">
+        <span id="form-char-count" class="char-count">0 / 1000</span>
+        <div class="form-btns">
+          <button id="btn-form-cancel" class="text-btn">キャンセル</button>
+          <button id="btn-form-save" class="primary-btn">保存</button>
+        </div>
+      </div>
+      <div id="form-error" class="inline-error hidden"></div>
+    </div>
+
+    <div class="options-toolbar">
+      <button id="btn-add-favorite" class="primary-btn">＋ 新規追加</button>
+    </div>
+
+    <ul id="options-list" class="item-list"></ul>
+    <p id="options-empty" class="empty-msg hidden">お気に入りがありません</p>
+  </div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="history.js"></script>
+  <script src="favorites.js"></script>
+  <script src="options.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
